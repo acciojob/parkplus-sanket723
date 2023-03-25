@@ -97,8 +97,10 @@ public class ReservationServiceImpl implements ReservationService {
         user.getReservationList().add(reservation);
 
         userRepository3.save(user);
+        spotRepository3.save(reserveSpot);
 
         //reservationRepository3.save(reservation);
+
 
         return reservation;
 
