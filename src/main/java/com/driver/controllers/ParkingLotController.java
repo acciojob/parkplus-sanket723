@@ -37,12 +37,14 @@ public class ParkingLotController {
     @DeleteMapping("/spot/{spotId}/delete")
     public ResponseEntity<Void> deleteSpot(@PathVariable int spotId) {
         //delete a spot from given parking lot
-        try {
-            parkingLotService.deleteSpot(spotId);
-        }
-        catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        try {
+//            parkingLotService.deleteSpot(spotId);
+//        }
+//        catch (Exception e){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+
+        parkingLotService.deleteSpot(spotId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

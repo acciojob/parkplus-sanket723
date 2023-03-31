@@ -46,8 +46,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
         ParkingLot parkingLot = parkingLotRepository1.findById(parkingLotId).get();
 
-        parkingLot.getSpotList().add(spot);
         spot.setParkingLot(parkingLot);
+        parkingLot.getSpotList().add(spot);
 
         parkingLotRepository1.save(parkingLot);  // check
 
@@ -56,23 +56,25 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
     @Override
     public void deleteSpot(int spotId) {
-        Spot spot;
-        try{
-            spot = spotRepository1.findById(spotId).get();
-        }
-        catch (Exception e){
-            throw new RuntimeException("Invalid Spot id");
-        }
+//        Spot spot;
+//        try{
+//            spot = spotRepository1.findById(spotId).get();
+//        }
+//        catch (Exception e){
+//            throw new RuntimeException("Invalid Spot id");
+//        }
+//
+//        ParkingLot parkingLot = spot.getParkingLot();
+//        List<Spot> spots = parkingLot.getSpotList();
+//        for(Spot s : spots){
+//            if(s.getId()==spotId){
+//                spots.remove(s);
+//            }
+//        }
+//        parkingLot.setSpotList(spots);
 
-        ParkingLot parkingLot = spot.getParkingLot();
-        List<Spot> spots = parkingLot.getSpotList();
-        for(Spot s : spots){
-            if(s.getId()==spotId){
-                spots.remove(s);
-            }
-        }
-        parkingLot.setSpotList(spots);
-       // parkingLotRepository1.save(parkingLot);
+        spotRepository1.deleteById(spotId);
+
 
     }
 
@@ -85,18 +87,24 @@ public class ParkingLotServiceImpl implements ParkingLotService {
           ParkingLot parkingLot = parkingLotRepository1.findById(parkingLotId).get();
           List<Spot> spots = parkingLot.getSpotList();
 
+          Spot updatedSpot = null;
           for(Spot s : spots){
               if(s.getId() == spotId){
                   s.setPricePerHour(pricePerHour);
+                  updatedSpot = s;
+                  spotRepository1.save(updatedSpot);
+                  break;
               }
           }
 
-          parkingLot.setSpotList(spots);
+//          parkingLot.setSpotList(spots);
+//
+//          parkingLotRepository1.save(parkingLot);
+//
+//
+//          return spotRepository1.findById(spotId).get();
 
-          parkingLotRepository1.save(parkingLot);
-
-
-          return spotRepository1.findById(spotId).get();
+        return updatedSpot;
     }
 
     @Override
