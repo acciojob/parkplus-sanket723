@@ -27,8 +27,9 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = new Payment();
 
         // amount check and mode check
+        int bill = reservation.getSpot().getPricePerHour() * reservation.getNumberOfHours();
 
-        if(amountSent < (reservation.getSpot().getPricePerHour() * reservation.getNumberOfHours())){
+        if(amountSent < bill){
             throw new Exception("Insufficient Amount");
         }
         if (!mode.toUpperCase().equals("CASH") && !mode.toUpperCase().equals("CARD") && !mode.toUpperCase().equals("UPI") ) {
