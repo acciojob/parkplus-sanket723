@@ -61,7 +61,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
             spot = spotRepository1.findById(spotId).get();
         }
         catch (Exception e){
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Invalid Spot id");
         }
 
         ParkingLot parkingLot = spot.getParkingLot();
@@ -72,7 +72,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
             }
         }
         parkingLot.setSpotList(spots);
-        parkingLotRepository1.save(parkingLot);
+       // parkingLotRepository1.save(parkingLot);
 
     }
 
